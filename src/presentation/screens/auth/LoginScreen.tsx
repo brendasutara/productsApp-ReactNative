@@ -2,9 +2,16 @@ import {Input, Layout, Text, Button} from '@ui-kitten/components';
 import {useWindowDimensions} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {MyIcon} from '../../components/UI/MyIcon';
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParams} from '../../navigation/StackNavigator';
+import {API_URL, STAGE} from '@env';
 
-export const LoginScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'LoginScreen'> {}
+
+export const LoginScreen = ({navigation}: Props) => {
   const {height} = useWindowDimensions();
+
+  console.log({apiUrl: API_URL, stage: STAGE});
   return (
     <Layout style={{flex: 1}}>
       <ScrollView style={{marginHorizontal: 40}}>
@@ -31,7 +38,7 @@ export const LoginScreen = () => {
         <Layout>
           <Button
             accessoryRight={<MyIcon name="arrowhead-right-outline" white />}
-            onPress={() => {}}>
+            onPress={() => navigation.navigate('HomeScreen')}>
             Ingresar
           </Button>
         </Layout>
@@ -44,7 +51,10 @@ export const LoginScreen = () => {
             gap: 10,
           }}>
           <Text>¿No tienes una cuenta?</Text>
-          <Text status="primary" category="s1" onPress={() => {}}>
+          <Text
+            status="primary"
+            category="s1"
+            onPress={() => navigation.navigate('RegisterScreen')}>
             Crea una aquí
           </Text>
         </Layout>
