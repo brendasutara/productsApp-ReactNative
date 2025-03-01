@@ -1,6 +1,7 @@
 import {Input, Layout, Text, Button} from '@ui-kitten/components';
 import {useWindowDimensions} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {MyIcon} from '../../components/UI/MyIcon';
 
 export const LoginScreen = () => {
   const {height} = useWindowDimensions();
@@ -22,12 +23,17 @@ export const LoginScreen = () => {
             placeholder="Contraseña"
             autoCapitalize="none"
             secureTextEntry
+            accessoryRight={<MyIcon name="eye-outline" color="#494949" />}
             style={{marginBottom: 10}}
           />
         </Layout>
         <Layout style={{height: 20}} />
         <Layout>
-          <Button onPress={() => {}}>Ingresar</Button>
+          <Button
+            accessoryRight={<MyIcon name="arrowhead-right-outline" white />}
+            onPress={() => {}}>
+            Ingresar
+          </Button>
         </Layout>
         <Layout style={{height: 50}} />
         <Layout
