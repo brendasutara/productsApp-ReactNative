@@ -1,17 +1,35 @@
 import {Input, Layout, Text, Button} from '@ui-kitten/components';
-import {useWindowDimensions} from 'react-native';
+import {Alert, useWindowDimensions} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {MyIcon} from '../../components/UI/MyIcon';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../navigation/StackNavigator';
 import {API_URL, STAGE} from '@env';
+import {useState} from 'react';
+import {useAuthStore} from '../../store/auth/useAuthStore';
 
 interface Props extends StackScreenProps<RootStackParams, 'LoginScreen'> {}
 
 export const LoginScreen = ({navigation}: Props) => {
+  const {login} = useAuthStore();
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+
   const {height} = useWindowDimensions();
 
-  console.log({apiUrl: API_URL, stage: STAGE});
+  const onLogin = async () => {
+    if (form.email.length === 0 || form.password.length === 0) {
+      return;
+    }
+
+    const wasSuccessfull = await login(form.email, form.password);
+    if (wasSuccessfull) return;
+
+    Alert.alert('Error', 'Usuario o contraseña incorrectos');
+  };
+
   return (
     <Layout style={{flex: 1}}>
       <ScrollView style={{marginHorizontal: 40}}>
@@ -24,12 +42,16 @@ export const LoginScreen = ({navigation}: Props) => {
             placeholder="Correo electrónico"
             keyboardType="email-address"
             autoCapitalize="none"
+            value={form.email}
+            onChangeText={email => setForm({...form, email})}
             style={{marginBottom: 10}}
           />
           <Input
             placeholder="Contraseña"
             autoCapitalize="none"
             secureTextEntry
+            value={form.password}
+            onChangeText={password => setForm({...form, password})}
             accessoryRight={<MyIcon name="eye-outline" color="#494949" />}
             style={{marginBottom: 10}}
           />
@@ -38,9 +60,10 @@ export const LoginScreen = ({navigation}: Props) => {
         <Layout>
           <Button
             accessoryRight={<MyIcon name="arrowhead-right-outline" white />}
-            onPress={() => navigation.navigate('HomeScreen')}>
+            onPress={onLogin}>
             Ingresar
           </Button>
+          <Text>{JSON.stringify(form, null, 2)}</Text>
         </Layout>
         <Layout style={{height: 50}} />
         <Layout
