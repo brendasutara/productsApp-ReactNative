@@ -11,6 +11,7 @@ interface Props extends StackScreenProps<RootStackParams, 'RegisterScreen'> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
   const {register} = useAuthStore();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPosting, setIsPosting] = useState(false);
   const [form, setForm] = useState({
     email: '',
@@ -66,11 +67,17 @@ export const RegisterScreen = ({navigation}: Props) => {
           <Input
             placeholder="Contraseña"
             autoCapitalize="none"
-            secureTextEntry
+            secureTextEntry={!isPasswordVisible} // Alternar visibilidad del texto
             value={form.password}
             onChangeText={password => setForm({...form, password})}
-            accessoryRight={<MyIcon name="eye-outline" color="#494949" />}
-            style={{marginBottom: 10}}
+            accessoryRight={() => (
+              <MyIcon
+                name={isPasswordVisible ? 'eye-off-outline' : 'eye-outline'} // Cambia el ícono
+                color="rgba(255, 255, 255, 0.5)"
+                size={28}
+                onPress={() => setIsPasswordVisible(!isPasswordVisible)} // Alternar visibilidad
+              />
+            )}
           />
         </Layout>
         <Layout style={{height: 20}} />
