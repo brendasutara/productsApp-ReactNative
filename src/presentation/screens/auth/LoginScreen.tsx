@@ -67,7 +67,6 @@ export const LoginScreen = ({navigation}: Props) => {
             onPress={onLogin}>
             Ingresar
           </Button>
-          <Text>{JSON.stringify(form, null, 2)}</Text>
         </Layout>
         <Layout style={{height: 50}} />
         <Layout

@@ -81,7 +81,6 @@ export const RegisterScreen = ({navigation}: Props) => {
             onPress={onRegister}>
             Registrarse
           </Button>
-          <Text>{JSON.stringify(form, null, 2)}</Text>
         </Layout>
         <Layout style={{height: 50}} />
         <Layout
