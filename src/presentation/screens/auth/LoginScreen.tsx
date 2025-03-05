@@ -4,7 +4,6 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {MyIcon} from '../../components/UI/MyIcon';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../navigation/StackNavigator';
-import {API_URL, STAGE} from '@env';
 import {useState} from 'react';
 import {useAuthStore} from '../../store/auth/useAuthStore';
 

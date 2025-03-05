@@ -1,3 +1,4 @@
+import axios from "axios";
 import { tesloApi } from "../../config/api/tesloApi"
 import { User } from "../../domain/entities/user";
 import type { AuthResponse } from "../../infrastructure/interfaces/auth.responses";
@@ -17,14 +18,14 @@ const returnUserToken = ( data: AuthResponse ) => {
     }
 }
 
-export const authLogin = async (email: string, pasword: string) => {
+export const authLogin = async (email: string, password: string) => {
 
     email = email.toLowerCase();
 
     try {
         const { data } = await tesloApi.post<AuthResponse>('/auth/login', {
             email,
-            pasword
+            password
         });
 
         return returnUserToken(data); 
