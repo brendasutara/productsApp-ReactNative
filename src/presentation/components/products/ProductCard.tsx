@@ -3,14 +3,20 @@ import {Product} from '../../../domain/entities/product';
 import {Card, Layout, Text} from '@ui-kitten/components';
 import {FadeInImage} from '../ui/FadeInImage';
 import {MyIcon} from '../ui/MyIcon';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParams} from '../../navigation/StackNavigator';
 
 interface Props {
   product: Product;
 }
 
 export const ProductCard = ({product}: Props) => {
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
   return (
     <Card
+      onPress={() =>
+        navigation.navigate('ProductScreen', {productId: product.id})
+      }
       style={{
         flex: 1,
         backgroundColor: '#F9F9F9',
@@ -39,7 +45,7 @@ export const ProductCard = ({product}: Props) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        <Text category="h6">$ {product.price}</Text>
+        <Text category="h6">$ {product.price.toString()}</Text>
         <MyIcon name="heart-outline" color="grey" size={25} />
       </Layout>
     </Card>
