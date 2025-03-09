@@ -1,7 +1,7 @@
 import {Input, Layout, Text, Button} from '@ui-kitten/components';
 import {Alert, useWindowDimensions} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {MyIcon} from '../../components/UI/MyIcon';
+import {MyIcon} from '../../components/ui/MyIcon';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../navigation/StackNavigator';
 import {useState} from 'react';
