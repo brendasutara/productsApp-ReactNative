@@ -4,8 +4,8 @@ import {StyleProp, ViewStyle} from 'react-native';
 
 interface Props {
   iconName: string;
-  style?: StyleProp<ViewStyle>;
   onPress: () => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const FAB = ({style, iconName, onPress}: Props) => {

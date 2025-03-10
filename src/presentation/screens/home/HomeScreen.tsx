@@ -8,6 +8,8 @@ import {ProductList} from '../../components/products/ProductList';
 import {FAB} from '../../components/ui/FAB';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParams} from '../../navigation/StackNavigator';
+import {MyIcon} from '../../components/ui/MyIcon';
+import {View} from 'react-native';
 
 export const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -36,19 +38,18 @@ export const HomeScreen = () => {
   return (
     <>
       <MainLayout
-        title="TesloShop - Product"
-        subTitle="Aplicación administrativa"
-        rightAction={() => {}}
-        rightActionIcon="plus-outline">
+        title="TesloShop - Products"
+        subTitle="Aplicación administrativa">
         {isLoading ? (
           <FullScreenLoader />
         ) : (
           <ProductList
-            fetchNextPage={fetchNextPage}
             products={data?.pages.flat() ?? []}
+            fetchNextPage={fetchNextPage}
           />
         )}
       </MainLayout>
+
       <FAB
         iconName="plus-outline"
         onPress={() => navigation.navigate('ProductScreen', {productId: 'new'})}

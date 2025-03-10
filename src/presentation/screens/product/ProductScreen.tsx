@@ -12,7 +12,7 @@ import {getProductById} from '../../../actions/products/get-product-by-id';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../navigation/StackNavigator';
 import {useRef} from 'react';
-import {FlatList, ScrollView} from 'react-native';
+import {FlatList, Image, ScrollView} from 'react-native';
 import {FadeInImage} from '../../components/ui/FadeInImage';
 import {Gender, Product, Size} from '../../../domain/entities/product';
 import {MyIcon} from '../../components/ui/MyIcon';
@@ -56,27 +56,42 @@ export const ProductScreen = ({route}: Props) => {
       {({handleChange, handleSubmit, values, errors, setFieldValue}) => (
         <MainLayout title={values.title} subTitle={`Precio: ${values.price}`}>
           <ScrollView style={{flex: 1}}>
-            <Layout>
-              <FlatList
-                data={values.images}
-                keyExtractor={item => item}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                  <FadeInImage
-                    uri={item}
-                    style={{
-                      width: 300,
-                      height: 300,
-                      marginHorizontal: 7,
-                      marginVertical: 10,
-                      borderRadius: 20,
-                      borderWidth: 1,
-                      borderColor: '#E5E5E5',
-                    }}
-                  />
-                )}
-              />
+            <Layout
+              style={{
+                marginVertical: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              {values.images.length === 0 ? (
+                <Image
+                  source={require('../../../assets/no-product-image.png')}
+                  style={{
+                    width: 300,
+                    height: 300,
+                  }}
+                />
+              ) : (
+                <FlatList
+                  data={values.images}
+                  keyExtractor={item => item}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({item}) => (
+                    <FadeInImage
+                      uri={item}
+                      style={{
+                        width: 300,
+                        height: 300,
+                        marginHorizontal: 7,
+                        marginVertical: 10,
+                        borderRadius: 20,
+                        borderWidth: 1,
+                        borderColor: '#E5E5E5',
+                      }}
+                    />
+                  )}
+                />
+              )}
             </Layout>
             <Layout style={{marginHorizontal: 10}}>
               <Input
