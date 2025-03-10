@@ -38,12 +38,11 @@ export const ProductScreen = ({route}: Props) => {
     mutationFn: (data: Product) =>
       updateCreateProduct({...data, id: productIdRef.current}),
     onSuccess(data: Product) {
-      productIdRef.current = data.id;
+      productIdRef.current = data.id; // creación
 
       queryClient.invalidateQueries({queryKey: ['products', 'infinite']});
       queryClient.invalidateQueries({queryKey: ['product', data.id]});
-
-      console.log('Success');
+      // queryClient.setQueryData(['product',  data.id ], data);
     },
   });
 
