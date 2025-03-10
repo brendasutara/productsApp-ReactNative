@@ -18,6 +18,7 @@ import {Gender, Product, Size} from '../../../domain/entities/product';
 import {MyIcon} from '../../components/ui/MyIcon';
 import {Formik} from 'formik';
 import {ProductImages} from '../../components/products/ProductImages';
+import {CameraAdapter} from '../../../config/adapters/camera-adapter';
 
 const sizes: Size[] = [Size.Xs, Size.S, Size.M, Size.L, Size.Xl, Size.Xxl];
 const genders: Gender[] = [Gender.Kid, Gender.Men, Gender.Women, Gender.Unisex];
@@ -53,7 +54,14 @@ export const ProductScreen = ({route}: Props) => {
       initialValues={product}
       onSubmit={values => mutation.mutate(values)}>
       {({handleChange, handleSubmit, values, errors, setFieldValue}) => (
-        <MainLayout title={values.title} subTitle={`Precio: ${values.price}`}>
+        <MainLayout
+          title={values.title}
+          subTitle={`Precio: $ ${values.price}`}
+          rightAction={async () => {
+            const photos = await CameraAdapter.takePicture();
+            setFieldValue('images', [...values.images, ...photos]);
+          }}
+          rightActionIcon="camera-outline">
           <ScrollView style={{flex: 1}}>
             <Layout
               style={{
@@ -154,8 +162,18 @@ export const ProductScreen = ({route}: Props) => {
               accessoryLeft={<MyIcon name="save-outline" white size={30} />}
               onPress={() => handleSubmit()}
               disabled={mutation.isPending}
-              style={{margin: 15}}>
+              style={{marginHorizontal: 15, marginVertical: 10}}>
               Guardar
+            </Button>
+            <Button
+              accessoryLeft={<MyIcon name="camera-outline" white size={30} />}
+              onPress={async () => {
+                const photos = await CameraAdapter.takePicture();
+                setFieldValue('images', [...values.images, ...photos]);
+              }}
+              disabled={mutation.isPending}
+              style={{marginHorizontal: 15}}>
+              Subir una imagen
             </Button>
             <Layout style={{height: 200}} />
           </ScrollView>

@@ -56,6 +56,7 @@ export const MainLayout = ({
         accessoryRight={() => <RenderRightAction />}
       />
       <Divider />
+
       <Layout style={{height: '100%'}}>{children}</Layout>
     </Layout>
   );
