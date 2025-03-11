@@ -4,7 +4,6 @@ import {
   ButtonGroup,
   Input,
   Layout,
-  Text,
   useTheme,
 } from '@ui-kitten/components';
 import {MainLayout} from '../../layouts/MainLayout';
@@ -61,7 +60,7 @@ export const ProductScreen = ({route}: Props) => {
             const photos = await CameraAdapter.takePicture();
             setFieldValue('images', [...values.images, ...photos]);
           }}
-          rightActionIcon="camera-outline">
+          rightActionIcon="image-outline">
           <ScrollView style={{flex: 1}}>
             <Layout
               style={{
@@ -166,12 +165,11 @@ export const ProductScreen = ({route}: Props) => {
               Guardar
             </Button>
             <Button
-              accessoryLeft={<MyIcon name="camera-outline" white size={30} />}
+              accessoryLeft={<MyIcon name="image-outline" white size={30} />}
               onPress={async () => {
-                const photos = await CameraAdapter.takePicture();
+                const photos = await CameraAdapter.getPicturesFromLibrary();
                 setFieldValue('images', [...values.images, ...photos]);
               }}
-              disabled={mutation.isPending}
               style={{marginHorizontal: 15}}>
               Subir una imagen
             </Button>
