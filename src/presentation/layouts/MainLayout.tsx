@@ -1,7 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import {
+  Button,
   Divider,
   Layout,
+  Text,
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
@@ -30,8 +32,7 @@ export const MainLayout = ({
 
   const renderBackAction = () => (
     <TopNavigationAction
-      icon={<MyIcon name="arrow-back-outline" />}
-      onPress={goBack}
+      icon={<MyIcon name="arrow-back-outline" onPress={() => goBack()} />}
     />
   );
 
@@ -40,8 +41,7 @@ export const MainLayout = ({
 
     return (
       <TopNavigationAction
-        onPress={rightAction}
-        icon={<MyIcon name={rightActionIcon} />}
+        icon={<MyIcon name={rightActionIcon} onPress={rightAction} />}
       />
     );
   };
