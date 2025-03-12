@@ -165,15 +165,6 @@ export const ProductScreen = ({route}: Props) => {
               style={{marginHorizontal: 15, marginVertical: 10}}>
               Guardar
             </Button>
-            <Button
-              accessoryLeft={<MyIcon name="image-outline" white size={30} />}
-              onPress={async () => {
-                const photos = await CameraAdapter.getPicturesFromLibrary();
-                setFieldValue('images', [...values.images, ...photos]);
-              }}
-              style={{marginHorizontal: 15}}>
-              Subir una imagen
-            </Button>
             <Layout style={{height: 200}} />
           </ScrollView>
         </MainLayout>
